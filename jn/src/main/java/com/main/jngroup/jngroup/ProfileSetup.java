@@ -93,8 +93,7 @@ public class ProfileSetup extends Activity {
         final Dialog d = new Dialog( this );
 
         d.requestWindowFeature( Window.FEATURE_NO_TITLE );
-        d.setContentView( passwordView, new ViewGroup.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT) );
+        d.setContentView( passwordView, new ViewGroup.LayoutParams( 400, LinearLayout.LayoutParams.MATCH_PARENT) );
 
         d.findViewById( R.id.dialogConfirmButton ).setOnClickListener( new View.OnClickListener() {
             @Override
