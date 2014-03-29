@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JNGroup</string>
+    <string name="app_title">JNGroup - HR Department</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="rightarrow">rightarrow</string>
+    <string name="leftarrow">leftarrow</string>
+    <string name="upload_icon">upload_icon</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="animated_gif">animated gif</string>
+    <string name="upload">Upload</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
+    <string name="messaging">Messaging</string>
+    <string name="articles">Articles</string>
+    <string name="reminder">Reminders</string>
+    <string name="department">Departments</string>
+    <string name="depart">Depart..</string>
+    <string name="search">Search</string>
+    <string name="title_activity_profile_setup">ProfileSetup</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_departments">Departments</string>
+    <string name="title_activity_upload">UploadActivity</string>
+    <string name="title_activity_articles">ArticlesActivity</string>
+    <string name="title_activity_view_article">ViewArticleActivity</string>
+
+</resources>

@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.main.jngroup.jngroup.DepartmentsActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/blue">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Departments"
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:textSize="@dimen/header_textview_size"
+            android:textColor="@color/yellow"
+            android:typeface="monospace"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/departmentsListView"
+        android:choiceMode="singleChoice"
+        android:padding="16dp"/>
+</LinearLayout>

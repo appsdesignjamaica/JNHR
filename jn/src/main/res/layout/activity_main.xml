@@ -1,0 +1,149 @@
+      <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativeTextview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/jn_logo_bg">
+ <LinearLayout
+android:id="@+id/topBar"
+android:layout_height="wrap_content"
+android:layout_width="fill_parent"
+android:orientation="horizontal"
+android:layout_alignParentTop="true"
+android:layout_marginTop="2dp"
+android:layout_marginLeft="2dp"
+android:layout_marginRight="2dp">
+
+<!-- Some Buttons at the top -->
+<Button 
+      android:id="@+id/imageBtnupload"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/upload"
+               android:paddingTop="10dp"
+             android:text="@string/upload"
+             android:background="@drawable/round_background_main_buttons"
+             />
+ 
+ <Button 
+      android:id="@+id/imageBtn6"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/chat"
+             android:paddingTop="10dp"
+             android:text="@string/chat"
+             android:background="@drawable/round_background_main_buttons"
+             />
+  <Button 
+      android:id="@+id/imageBtn7"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/profile"
+           android:paddingTop="10dp"
+             android:text="@string/profile"
+             android:background="@drawable/round_background_main_buttons"
+             />
+   <Button 
+      android:id="@+id/imageBtn8"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/articles"
+               android:paddingTop="10dp"
+             android:text="@string/articles"
+             android:background="@drawable/round_background_main_buttons"
+             />
+</LinearLayout>
+
+            <LinearLayout
+android:id="@+id/bottomBar"
+android:layout_height="wrap_content"
+android:layout_width="fill_parent"
+android:orientation="horizontal"
+android:layout_alignParentBottom="true"
+android:layout_marginLeft="2dp"
+android:layout_marginRight="2dp"
+android:layout_marginBottom="2dp">
+
+<!-- Some Buttons at the bottom -->
+  <Button 
+      android:id="@+id/imageBtn1"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/messaging"
+              android:paddingTop="10dp"
+             android:text="@string/messaging"
+             android:background="@drawable/round_background_main_buttons"
+             />
+<Button 
+      android:id="@+id/imageBtn2"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/reminder"
+           android:paddingTop="10dp"
+          android:text="@string/reminder"
+             android:background="@drawable/round_background_main_buttons"
+             />
+ <Button 
+      android:id="@+id/imageBtn3"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/department"
+              android:paddingTop="10dp"
+             android:text="@string/department"
+             android:background="@drawable/round_background_main_buttons"
+             android:textSize="13sp"/>
+   <Button 
+      android:id="@+id/imageBtn4"
+         android:layout_width="0dp"
+           android:layout_weight="1"
+       android:layout_height="wrap_content"
+             android:drawableTop="@drawable/search"
+                android:paddingTop="10dp"
+              android:text="@string/search"
+             android:background="@drawable/round_background_main_buttons"
+             />
+</LinearLayout>
+  <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/topBar"
+         android:layout_above="@id/bottomBar"
+        android:gravity="center" >
+
+      <android.support.v4.view.ViewPager
+            android:id="@+id/reviewpager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                />
+
+      <ImageView
+          android:id="@+id/imageView1"
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+          android:layout_alignParentLeft="true"
+          android:layout_centerHorizontal="true"
+          android:layout_centerVertical="true"
+          android:contentDescription="@string/leftarrow"
+          android:src="@drawable/left_arrow"
+          android:onClick="prevPage"/>
+
+      <ImageView
+                android:id="@+id/imageView2"
+                 android:layout_width="50dp"
+                 android:layout_height="50dp"
+                   android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/rightarrow"
+                android:src="@drawable/right_arrow"
+                android:onClick="nextPage"/>
+        </RelativeLayout>
+    </RelativeLayout>
+

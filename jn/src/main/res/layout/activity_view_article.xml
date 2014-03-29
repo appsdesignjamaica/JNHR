@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.main.jngroup.jngroup.ViewArticleActivity"
+    android:orientation="vertical">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/webView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/articleViewListView"
+        android:layout_below="@+id/webView"
+        android:layout_centerHorizontal="true"
+        android:choiceMode="singleChoice"
+        android:padding="10dp"
+        android:layout_weight="0.6"/>
+</LinearLayout>
