@@ -1,5 +1,6 @@
 package com.main.jngroup.jngroup;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -49,12 +50,11 @@ public class ProfileSetup extends Activity {
         mInputTextBoxes[1] = (EditText)findViewById( R.id.lnameEditText );
         mInputTextBoxes[2] = (EditText)findViewById( R.id.emailEditText );
         mInputTextBoxes[3] = (EditText)findViewById( R.id.telEditText );
-        mStatusPresence = (TextView)findViewById( R.id.statusPresenceText );
-        mProfileImageView = (ImageView)findViewById( R.id.profileImageView );
-        mStatusImageView = (ImageView)findViewById( R.id.statusPresenceImage );
+        mStatusPresence    = (TextView)findViewById( R.id.statusPresenceText );
+        mProfileImageView  = (ImageView)findViewById( R.id.profileImageView );
+        mStatusImageView   = (ImageView)findViewById( R.id.statusPresenceImage );
         TextHelper.setTextTypeface( this, (TextView) findViewById( R.id.textView ) );
         mProfileImageView.requestFocus();
-
     }
 
     //INITIALIZE PROFILE DATA
@@ -87,24 +87,45 @@ public class ProfileSetup extends Activity {
     }
 
     //CHANGE PASSWORD
+    @SuppressLint("InflateParams")
     public void changePassword(View v){
-       View passwordView = getLayoutInflater().inflate( R.layout.dialog_password, null, false );
+        View passwordView = getLayoutInflater().inflate( R.layout.dialog_password, null, false );
         final Dialog d = new Dialog( this );
-
         d.requestWindowFeature( Window.FEATURE_NO_TITLE );
-        d.setContentView( passwordView, new ViewGroup.LayoutParams( 400, LinearLayout.LayoutParams.MATCH_PARENT) );
-
+        d.setContentView( passwordView, new ViewGroup.LayoutParams( 450, LinearLayout.LayoutParams.MATCH_PARENT ) );
+        final EditText password1 = (EditText)d.findViewById( R.id.dialogPassword1 );
+        final EditText password2 = (EditText)d.findViewById( R.id.dialogPassword2 );
+        password1.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick( View view ) {
+                password1.setError( null );
+            }
+        } );
+        password2.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick( View view ) {
+                password2.setError( null );
+            }
+        } );
         d.findViewById( R.id.dialogConfirmButton ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View view ) {
-                writeToast( "Password has been updated" );
+                String pass1 = password1.getText().toString().trim();
+                String pass2 = password2.getText().toString().trim();
+                if(!pass1.isEmpty()){
+                    if(pass2.equals( pass1 ))
+                        writeToast( "Password has been updated" );
+                    else
+                        password2.setError( "Does not match previous field" );
+                }else
+                    password1.setError( "Must not be empty" );
+
             }
         } );
         d.findViewById( R.id.dialogCancelButton ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View v ) {
                 d.dismiss();
-
             }
         } );
        d.show();

@@ -49,7 +49,7 @@
         <activity
             android:name="com.main.jngroup.jngroup.ArticlesActivity"
             android:label="@string/title_activity_articles"
-            android:parentActivityName="com.main.jngroup.MainActivity" >
+            android:parentActivityName="com.main.jngroup.jngroup.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
