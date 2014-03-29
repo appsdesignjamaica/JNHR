@@ -26,7 +26,6 @@ import com.main.jngroup.jnhelper.TextHelper;
 public class ProfileSetup extends Activity {
     private String mChosenPicturePath;
     private int REQUEST_PICTURE = 12345;
-    private EditText mFname,mLname,mEmail,mTele;
     private EditText[] mInputTextBoxes = new EditText[4];
     private ImageView mProfileImageView, mStatusImageView;
     private JNPreferences mJNPrefs;
@@ -143,12 +142,18 @@ public class ProfileSetup extends Activity {
        } ).setTitle( "I am...." ).create().show();
     }
 
+    //RESAMPLE IMAGE
+    private void scaleDownUserPhoto(){
+
+    }
+
     @Override
     protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
         if(resultCode == RESULT_OK){
             if(requestCode == REQUEST_PICTURE){
                 mChosenPicturePath = data.getData().toString();
                 mProfileImageView.setImageURI( Uri.parse( mChosenPicturePath ) );
+                //TODO:update user photo on backend
             }
         }
     }
