@@ -58,6 +58,10 @@
             android:name="com.main.jngroup.jngroup.ViewArticleActivity"
             android:label="@string/title_activity_view_article" >
         </activity>
+        <activity
+            android:name="com.main.jngroup.jngroup.ReminderActivity"
+            android:label="@string/title_activity_reminder" >
+        </activity>
     </application>
 
 </manifest>

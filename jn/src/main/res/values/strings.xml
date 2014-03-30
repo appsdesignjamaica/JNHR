@@ -25,5 +25,6 @@
     <string name="title_activity_upload">UploadActivity</string>
     <string name="title_activity_articles">ArticlesActivity</string>
     <string name="title_activity_view_article">ViewArticleActivity</string>
+    <string name="title_activity_reminder">ReminderActivity</string>
 
 </resources>

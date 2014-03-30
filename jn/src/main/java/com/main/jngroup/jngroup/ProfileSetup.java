@@ -116,9 +116,9 @@ public class ProfileSetup extends Activity {
                     if(pass2.equals( pass1 ))
                         writeToast( "Password has been updated" );
                     else
-                        password2.setError( "Does not match previous field" );
+                        password2.setError( Html.fromHtml( "<font color='red'>Does not match previous field") );
                 }else
-                    password1.setError( "Must not be empty" );
+                    password1.setError( Html.fromHtml( "<font color='red'>Must not be empty") );
 
             }
         } );
