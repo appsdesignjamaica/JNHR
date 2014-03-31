@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.main.jngroup.R;
+import com.main.jngroup.jnhelper.TextHelper;
 
 import java.util.List;
 
@@ -21,7 +22,12 @@ public class ReminderActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
 
-        mReminderListView = ( ListView)findViewById( R.id.reminderListView );
+        initViews();
+    }
+
+    private void initViews() {
+        TextHelper.setTextTypeface( this, (TextView) findViewById( R.id.textView ) );
+        mReminderListView = (ListView)findViewById( R.id.reminderListView );
         mAdapter = new RemindersAdapter();
         mReminderListView.setAdapter( mAdapter );
     }
