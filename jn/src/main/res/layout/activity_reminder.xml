@@ -27,8 +27,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/reminderListView"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:padding="16dp"
-        android:choiceMode="singleChoice"/>
+        android:choiceMode="singleChoice"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:smoothScrollbar="true"
+        android:clipToPadding="false"/>
 
 </LinearLayout>

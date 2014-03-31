@@ -92,8 +92,7 @@ public class MainActivity extends Activity implements ViewPager.OnPageChangeList
 
 				@Override
 				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					Toast.makeText(MainActivity.this, "Messaging: ", Toast.LENGTH_SHORT).show();
+                    startActivity( new Intent( MainActivity.this, MessagingActivity.class ) );
 				}
 	        	
 	        });
@@ -102,8 +101,7 @@ public class MainActivity extends Activity implements ViewPager.OnPageChangeList
 
 				@Override
 				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					Toast.makeText(MainActivity.this, "Reminder: ", Toast.LENGTH_SHORT).show();
+                    startActivity( new Intent( MainActivity.this, ReminderActivity.class ) );
 				}
 	        	
 	        });

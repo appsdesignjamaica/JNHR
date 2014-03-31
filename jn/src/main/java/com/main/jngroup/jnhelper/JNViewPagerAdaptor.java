@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.main.jngroup.R;
 import com.main.jngroup.jngroup.ArticlesActivity;
 import com.main.jngroup.jngroup.DepartmentsActivity;
+import com.main.jngroup.jngroup.MessagingActivity;
 import com.main.jngroup.jngroup.ProfileSetup;
+import com.main.jngroup.jngroup.ReminderActivity;
 import com.main.jngroup.jngroup.SearchActivity;
 import com.main.jngroup.jngroup.UploadActivity;
 
@@ -66,16 +68,16 @@ public class JNViewPagerAdaptor extends PagerAdapter {
 					 Toast.makeText(act, "Chat: "+position, Toast.LENGTH_SHORT).show();
 				break;
 				case 2:
-                        act.startActivity( new Intent( act, ProfileSetup.class ) );
+                     act.startActivity( new Intent( act, ProfileSetup.class ) );
 					 break;
 				case 3:
                     act.startActivity( new Intent( act, ArticlesActivity.class ) );
 					break;
 				case 4:
-					 Toast.makeText(act, "Messaging: "+position, Toast.LENGTH_SHORT).show();
+                    act.startActivity( new Intent( act, MessagingActivity.class ) );
 					 break;
 				case 5:
-					 Toast.makeText(act, "Reminder: "+position, Toast.LENGTH_SHORT).show();
+                     act.startActivity( new Intent( act, ReminderActivity.class ) );
 					 break;
 				case 6:
                     act.startActivity( new Intent( act, DepartmentsActivity.class ) );

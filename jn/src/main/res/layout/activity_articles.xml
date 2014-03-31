@@ -28,6 +28,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/articlesListView"
         android:layout_gravity="center_horizontal"
-        android:padding="16dp"
-        android:choiceMode="singleChoice"/>
+        android:choiceMode="singleChoice"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        tools:listitem="@layout/row_article"
+        android:clipToPadding="false"
+        android:smoothScrollbar="true"/>
 </LinearLayout>

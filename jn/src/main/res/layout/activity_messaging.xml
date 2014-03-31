@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.main.jngroup.jngroup.MessagingActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/header_height"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:background="@color/blue"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Messaging"
+            android:id="@+id/textView"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="@dimen/header_textview_size"
+            android:textColor="@color/yellow"/>
+    </LinearLayout>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/messagingSpinner"
+        android:layout_below="@+id/linearLayout"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:layout_alignRight="@+id/messagingEditText"
+        android:layout_alignEnd="@+id/messagingEditText"
+        android:layout_alignLeft="@+id/messagingEditText"
+        android:layout_alignStart="@+id/messagingEditText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/messagingEditText"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:inputType="text|textMultiLine|textCapSentences"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_above="@+id/messagingButton"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="top"
+        android:hint="Message here......"
+        android:layout_below="@+id/messagingSpinner"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:id="@+id/messagingButton"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

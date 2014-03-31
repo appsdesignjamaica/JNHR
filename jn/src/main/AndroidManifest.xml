@@ -62,6 +62,14 @@
             android:name="com.main.jngroup.jngroup.ReminderActivity"
             android:label="@string/title_activity_reminder" >
         </activity>
+        <activity
+            android:name="com.main.jngroup.jngroup.MessagingActivity"
+            android:label="@string/title_activity_messaging"
+            android:parentActivityName="com.main.jngroup.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
     </application>
 
 </manifest>

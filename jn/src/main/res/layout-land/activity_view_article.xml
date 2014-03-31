@@ -20,6 +20,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/webView"
         android:choiceMode="singleChoice"
-        android:padding="10dp"
-        android:layout_weight="0.7"/>
+        android:layout_weight="0.7"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp"/>
 </LinearLayout>

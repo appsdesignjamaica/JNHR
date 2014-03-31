@@ -7,30 +7,24 @@
               android:background="#F3F3F3">
 
     <ImageView
-        android:id="@+id/reminderImageView"
+        android:id="@+id/ImageView"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/ic_todo"/>
+        android:src="@drawable/ic_article"
+        android:layout_centerVertical="true"/>
 
     <TextView
-        android:id="@+id/reminderTextView"
+        android:id="@+id/articleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/reminderImageView"
+        android:layout_toRightOf="@+id/ImageView"
         android:textSize="18sp"
         android:text="test"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_centerVertical="true"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="New Text"
-        android:id="@+id/reminderDetailsTextView"
-        android:layout_below="@+id/reminderTextView"
-        android:layout_toRightOf="@+id/reminderImageView"/>
 </RelativeLayout>

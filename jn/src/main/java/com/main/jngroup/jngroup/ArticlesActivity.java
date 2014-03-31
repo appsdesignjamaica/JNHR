@@ -68,9 +68,9 @@ public class ArticlesActivity extends Activity {
             Holder holder;
 
             if(convertView == null){
-                convertView = getLayoutInflater().inflate(android.R.layout.simple_list_item_1 , viewGroup, false );
+                convertView = getLayoutInflater().inflate(R.layout.row_article , viewGroup, false );
                 holder = new Holder();
-                holder.articleName = (TextView)convertView.findViewById( android.R.id.text1 );
+                holder.articleName = (TextView)convertView.findViewById( R.id.articleTextView );
                 convertView.setTag( holder );
             }else{
                 holder = (Holder)convertView.getTag();
