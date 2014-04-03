@@ -2,10 +2,7 @@ package com.main.jngroup.jngroup;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,7 +30,7 @@ public class ArticlesActivity extends Activity {
         mArticles.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick( AdapterView<?> adapterView, View view, int position, long id ) {
-                Intent pdfIntent = new Intent( ArticlesActivity.this, ViewArticleActivity.class );
+                Intent pdfIntent = new Intent( ArticlesActivity.this, ArticleViewActivity.class );
                 pdfIntent.putExtra( "pdf_url", "http://www.energy.umich.edu/sites/default/files/pdf-sample.pdf" );
                 startActivity( pdfIntent );
             }

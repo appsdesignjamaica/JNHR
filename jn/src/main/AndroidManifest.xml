@@ -55,7 +55,7 @@
                 android:value="MainActivity" />
         </activity>
         <activity
-            android:name="com.main.jngroup.jngroup.ViewArticleActivity"
+            android:name=".jngroup.ArticleViewActivity"
             android:label="@string/title_activity_view_article" >
         </activity>
         <activity

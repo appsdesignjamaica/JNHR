@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.main.jngroup.R;
 
-public class ViewArticleActivity extends Activity {
+public class ArticleViewActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
