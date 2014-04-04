@@ -3,20 +3,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="#F3F3F3">
+              android:layout_height="match_parent"
+              android:paddingTop="2dp"
+              android:paddingBottom="2dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Mr. Bedward"
         android:id="@+id/articleCommenterTextView"
         android:singleLine="true"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="New Text"
+        android:text="@string/sample_text"
         android:id="@+id/articleCommentTextView"/>
 </LinearLayout>

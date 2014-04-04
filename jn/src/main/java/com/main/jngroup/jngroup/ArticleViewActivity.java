@@ -1,6 +1,7 @@
 package com.main.jngroup.jngroup;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,13 +20,15 @@ import android.widget.Toast;
 import com.main.jngroup.R;
 
 public class ArticleViewActivity extends Activity {
+    private LinearLayout mDrawerContainer;
+    private boolean isMenuOpen = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_article);
 
-
+        mDrawerContainer = (LinearLayout)findViewById( R.id.menuContainer );
 
         if(getIntent().getExtras() != null) {
             ListView mArticleViewListView = (ListView) findViewById( R.id.articleViewListView );
@@ -39,6 +44,30 @@ public class ArticleViewActivity extends Activity {
         }else{
             Toast.makeText(this, "Failed to load the appropriate file", Toast.LENGTH_LONG).show();
             finish();
+        }
+    }
+
+    public void toggleDrawer(View v){
+        float weight = 1.0f;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            weight = 3.0f;
+        if(isMenuOpen) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            isMenuOpen = !isMenuOpen;
+            mDrawerContainer.getChildAt( 1 ).setVisibility( View.GONE );
+            mDrawerContainer.getChildAt( 2 ).setVisibility( View.GONE );
+            mDrawerContainer.setLayoutParams( params );
+            ((Button)v).setText( "Open menu" );
+        }else{
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,0, weight );
+            isMenuOpen = !isMenuOpen;
+            mDrawerContainer.getChildAt( 1 ).setVisibility( View.VISIBLE );
+            mDrawerContainer.getChildAt( 2 ).setVisibility( View.VISIBLE );
+            mDrawerContainer.setLayoutParams( params );
+            ((Button)v).setText( "Close menu" );
         }
     }
 
@@ -82,7 +111,7 @@ public class ArticleViewActivity extends Activity {
                 holder = (Holder)convertView.getTag();
             }
 
-            holder.comment.setText( getItem( position ) );
+            holder.comment.setText( getString( R.string.sample_text ) );
             holder.commenterName.setText( (position % 2 == 0)? "Mr. Guy" : "Mr. Bedward" );
 
             return convertView;

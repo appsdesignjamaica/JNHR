@@ -28,4 +28,10 @@
     <string name="title_activity_reminder">ReminderActivity</string>
     <string name="title_activity_messaging">MessagingActivity</string>
 
+    <!-- Sample text 20 words -->
+    <string name="sample_text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque luctus
+        dictum justo at dictum. Ut id lacus bibendum, vehicula tortor.
+    </string>
+
 </resources>
