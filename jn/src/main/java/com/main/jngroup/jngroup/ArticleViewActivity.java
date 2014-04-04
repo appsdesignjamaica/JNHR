@@ -78,7 +78,7 @@ public class ArticleViewActivity extends Activity {
         d.findViewById( R.id.commentButton ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View view ) {
-
+//Push comment to server
             }
         } );
         d.show();
