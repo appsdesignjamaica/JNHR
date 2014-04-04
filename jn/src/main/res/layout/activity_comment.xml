@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Post"
-            android:id="@+id/button"
+            android:id="@+id/commentButton"
             android:background="@drawable/round_background_general_buttons"
             android:textColor="@color/yellow"
             android:layout_marginLeft="10dp"
