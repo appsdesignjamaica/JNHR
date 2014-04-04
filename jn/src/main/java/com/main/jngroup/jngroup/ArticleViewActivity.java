@@ -1,11 +1,9 @@
 package com.main.jngroup.jngroup;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.res.Configuration;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -72,6 +70,16 @@ public class ArticleViewActivity extends Activity {
     }
 
 
+    public void makeComment(View v){
+        View commentView = getLayoutInflater().inflate( R.layout.activity_comment, null, false );
+        new AlertDialog.Builder( this )
+                .setView( commentView )
+                .create().show();
+    }
+
+    /**
+     * Set article adapter
+     */
     public class ArticlesViewAdapter extends BaseAdapter {
         private String[] comments = new String[50];
 

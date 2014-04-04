@@ -79,7 +79,8 @@
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:singleLine="true"
-                android:drawablePadding="5dp"/>
+                android:drawablePadding="5dp"
+                android:onClick="makeComment"/>
         </LinearLayout>
 
         <ListView
