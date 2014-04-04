@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.main.jngroup.jngroup.DepartmentsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clickable="false"
+    android:divider="@android:color/transparent"
+    android:dividerPadding="3dp"
+    android:id="@+id/departmentsActivityContainer">
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,9 +29,16 @@
     </LinearLayout>
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/departmentsListView"
         android:choiceMode="singleChoice"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        tools:listitem="@layout/row_departments"
+        android:dividerHeight="3dp"
+        android:divider="@android:color/transparent"
+        android:requiresFadingEdge="vertical"
+        android:clipToPadding="false"
+        android:hapticFeedbackEnabled="false"
+        android:listSelector="@drawable/general_listview_selector"/>
 </LinearLayout>

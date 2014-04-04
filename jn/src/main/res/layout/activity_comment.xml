@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Post"
             android:id="@+id/commentButton"
-            android:background="@drawable/round_background_general_buttons"
+            android:background="@drawable/general_button_selector"
             android:textColor="@color/yellow"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"

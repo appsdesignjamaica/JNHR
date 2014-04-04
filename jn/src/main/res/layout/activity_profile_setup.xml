@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:text="Change Password"
                 android:id="@+id/button4"
-                android:background="@drawable/round_background_general_buttons"
+                android:background="@drawable/general_button_selector"
                 android:textColor="#fffb00"
                 android:onClick="changePassword"
                 android:layout_alignBottom="@+id/linearLayout"
@@ -241,11 +241,11 @@
 
                 <Button
                     android:layout_width="130dp"
-                    android:layout_height="40dp"
+                    android:layout_height="match_parent"
                     android:text="Update"
                     android:id="@+id/button"
                     android:textColor="#fffb00"
-                    android:background="@drawable/round_background_general_buttons"
+                    android:background="@drawable/general_button_selector"
                     android:onClick="parseInput"/>
 
                 <Button
@@ -255,7 +255,7 @@
                     android:id="@+id/button2"
                     android:layout_gravity="right"
                     android:textColor="#fffb00"
-                    android:background="@drawable/round_background_general_buttons"
+                    android:background="@drawable/general_button_selector"
                     android:layout_marginLeft="15dp"
                     android:onClick="cancelProfile"/>
             </LinearLayout>

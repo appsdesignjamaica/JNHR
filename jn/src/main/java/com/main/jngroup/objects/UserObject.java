@@ -3,7 +3,7 @@ package com.main.jngroup.objects;
 /**
  * Created by nove1398 on 3/26/2014.
  */
-public class User {
+public class UserObject {
     private String firstName;
     private String lastName;
     private String email;
