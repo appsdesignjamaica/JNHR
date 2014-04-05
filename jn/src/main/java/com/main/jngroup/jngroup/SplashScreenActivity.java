@@ -24,10 +24,16 @@ public class SplashScreenActivity extends Activity {
 		setContentView( R.layout.activity_splash_screen);
 
         if( !JNUtils.hasIntenernetConnection( this )){
-            Toast.makeText( this, "You must be connected to the internet in order to proceed", Toast.LENGTH_SHORT ).show();
+            Toast.makeText( this, "You must be connected to the internet in order to proceed", Toast.LENGTH_LONG ).show();
             Handle.removeCallbacks( null );
-            finish();
-            startActivity(new Intent( Settings.ACTION_SETTINGS));
+            new Handler(  ).postDelayed( new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                    startActivity(new Intent( Settings.ACTION_SETTINGS));
+                }
+            }, 2000 );
+
         }else {
 
             gab = new GetAssetsBytes( this );

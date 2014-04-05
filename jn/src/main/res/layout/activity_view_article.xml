@@ -97,7 +97,8 @@
             android:background="@color/white"
             tools:listitem="@layout/row_article_comments"
             android:fadingEdge="vertical"
-            android:paddingBottom="1dp"/>
+            android:paddingBottom="1dp"
+            android:requiresFadingEdge="vertical"/>
     </LinearLayout>
 
 </LinearLayout>

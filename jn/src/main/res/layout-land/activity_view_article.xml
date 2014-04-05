@@ -95,7 +95,8 @@
             android:paddingTop="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="5dp"
-            tools:listitem="@layout/row_article_comments"/>
+            tools:listitem="@layout/row_article_comments"
+            android:fadingEdge="vertical"/>
 
     </LinearLayout>
 

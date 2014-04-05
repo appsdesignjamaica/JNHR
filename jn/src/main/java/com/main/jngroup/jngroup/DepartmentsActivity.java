@@ -52,7 +52,10 @@ public class DepartmentsActivity extends Activity {
         } );
     }
 
-
+    /**
+     * GENERATES POPUP DIALOG
+     * @param name
+     */
     private void populateDialog(String name){
         View view = getLayoutInflater().inflate( R.layout.dialog_department,null, false );
         final Dialog d = new Dialog( this );
@@ -152,7 +155,6 @@ public class DepartmentsActivity extends Activity {
 
         class Holder{
             TextView departmentName;
-            TextView departmentLocation;
         }
     }
 }

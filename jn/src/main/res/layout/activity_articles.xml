@@ -34,5 +34,6 @@
         android:paddingRight="5dp"
         tools:listitem="@layout/row_article"
         android:clipToPadding="false"
-        android:smoothScrollbar="true"/>
+        android:smoothScrollbar="true"
+        android:fadingEdge="vertical"/>
 </LinearLayout>
