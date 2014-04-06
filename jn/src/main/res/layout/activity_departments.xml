@@ -40,5 +40,18 @@
         android:requiresFadingEdge="vertical"
         android:clipToPadding="false"
         android:hapticFeedbackEnabled="false"
-        android:listSelector="@drawable/general_listview_selector"/>
+        android:listSelector="@drawable/general_listview_selector"
+        android:visibility="gone"/>
+
+    <ProgressBar
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/departmentProgressBar"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateOnly="false"
+        android:layout_marginTop="150dp"
+        />
+
 </LinearLayout>

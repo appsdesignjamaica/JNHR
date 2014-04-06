@@ -72,16 +72,18 @@ public class ArticleViewActivity extends Activity {
 
     public void makeComment(View v){
         View commentView = getLayoutInflater().inflate( R.layout.activity_comment, null, false );
-        AlertDialog.Builder alert = new AlertDialog.Builder( this )
-                .setView( commentView );
-        AlertDialog d = alert.create();
-        d.findViewById( R.id.commentButton ).setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick( View view ) {
-//Push comment to server
-            }
-        } );
-        d.show();
+
+        AlertDialog.Builder alert = new AlertDialog.Builder( this );
+        alert.setView( commentView );
+        if(commentView != null)
+            commentView.findViewById( R.id.commentButton ).setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick( View view ) {
+                    //Push comment to server
+                }
+            } );
+        alert.create();
+        alert.show();
     }
 
     /**
