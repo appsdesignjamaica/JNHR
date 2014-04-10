@@ -2,8 +2,16 @@
         android:id="@+id/relativeTextview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/jn_logo_bg">
- <LinearLayout
+          >
+
+          <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/imageView"
+              android:src="@drawable/bg_jn_logo"
+              android:scaleType="centerInside"/>
+
+          <LinearLayout
 android:id="@+id/topBar"
 android:layout_height="wrap_content"
 android:layout_width="fill_parent"
