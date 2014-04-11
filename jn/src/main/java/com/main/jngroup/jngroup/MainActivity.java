@@ -1,6 +1,8 @@
 package com.main.jngroup.jngroup;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -83,7 +85,18 @@ public class MainActivity extends Activity implements ViewPager.OnPageChangeList
 
 				@Override
 				public void onClick(View arg0) {
-                    startActivity( new Intent( MainActivity.this,ArticlesActivity.class ) );
+                    final CharSequence[] articleType = {"PDF","Images", "Videos"};
+                    new AlertDialog.Builder( MainActivity.this )
+                            .setTitle( "Select the type of article needed" )
+                            .setSingleChoiceItems( articleType, 0, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick( DialogInterface dialogInterface, int item ) {
+                                    Intent fetchIntent = new Intent( MainActivity.this, ArticlesActivity.class );
+                                    fetchIntent.putExtra( "type", item );
+                                    startActivity(fetchIntent);
+                                }
+                            } ).create().show();
+
 				}
 	        	
 	        });
