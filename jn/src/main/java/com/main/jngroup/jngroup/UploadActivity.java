@@ -2,11 +2,17 @@ package com.main.jngroup.jngroup;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +25,7 @@ import com.main.jngroup.jnhelper.TextHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public class UploadActivity extends Activity {
@@ -55,8 +62,9 @@ public class UploadActivity extends Activity {
                                 startActivityForResult( uploadIntent2, UPLOAD_VIDEO_REQUEST_CODE );
                                 break;
                             case 2:
-                                Intent uploadIntent3 = new Intent(Intent.ACTION_PICK);
-                                uploadIntent3.setType( "application/pdf" );
+                                Intent uploadIntent3 = new Intent(Intent.ACTION_GET_CONTENT);
+                                uploadIntent3.addCategory(Intent.CATEGORY_OPENABLE);
+                                uploadIntent3.setType( "*/*" );
                                 startActivityForResult( uploadIntent3, UPLOAD_PDF_REQUEST_CODE );
                                 break;
                             default:
@@ -71,21 +79,34 @@ public class UploadActivity extends Activity {
         if(resultCode == RESULT_OK){
             AsyncHttpClient client = new AsyncHttpClient(  );
             int fileType = 0;
+            String fileExt = null;
+            boolean error = false;
            if(requestCode == UPLOAD_IMAGE_REQUEST_CODE){
-              fileType = 3;
+               fileType = 3;
+               fileExt = ".jpg";
+
            }else if(requestCode == UPLOAD_VIDEO_REQUEST_CODE){
-            fileType = 1;
-           }else if(requestCode == UPLOAD_PDF_REQUEST_CODE ){
-              fileType = 2;
+               fileType = 1;
+               fileExt = ".mp4";
+           }else{
+                   if( data.getData().getLastPathSegment().endsWith( "pdf" ) ||
+                           data.getData().getLastPathSegment().endsWith( "PDF" ) ) {
+                       fileType = 2;
+                       fileExt = "test.pdf";
+                   }else{
+                       Toast.makeText( this, "Invalid file type chosen", Toast.LENGTH_LONG ).show();
+                       error = true;
+                   }
            }
-            uploadImageToServer( client, data, fileType );
+            if(!error)
+                uploadImageToServer( client, data, fileType, fileExt );
         }
         if(resultCode == RESULT_CANCELED){
             Toast.makeText( this, "Request canceled", Toast.LENGTH_LONG ).show();
         }
     }
 
-    private void uploadImageToServer( AsyncHttpClient client, Intent data, int fileType ) {
+    private void uploadImageToServer( final AsyncHttpClient client, Intent data, int fileType, String fileExt ) {
         String url = getString( R.string.jngroup_request_url );
 
         RequestParams params = new RequestParams(  );
@@ -93,12 +114,33 @@ public class UploadActivity extends Activity {
         params.put( "iduser", String.valueOf( 1 ) );
         params.put( "type", String.valueOf( fileType ) );
         try {
-            params.put( "file", getContentResolver().openInputStream( data.getData() ),".jpg" );
+            if(fileType != 2)
+                params.put( "file", getContentResolver().openInputStream( data.getData() ), fileExt );
+            else
+                params.put( "file", new File(  data.getData().getPath() ) );
         } catch( FileNotFoundException e ) {
             e.printStackTrace();
         }
-        Log.e( getClass().getName(), data.getData().toString() );
-        client.post( url, params, new JsonHttpResponseHandler() {
+
+        Log.e( getClass().getName(), data.getData().getPath() );
+        client.post(UploadActivity.this, url, params, new JsonHttpResponseHandler() {
+            boolean userCancel = true;
+            ProgressDialog progressDialog = new ProgressDialog( UploadActivity.this  );
+            @Override
+            public void onStart() {
+                progressDialog.setIndeterminate( true );
+                progressDialog.setMessage( "Uploading file, please wait..." );
+                progressDialog.setOnDismissListener( new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss( DialogInterface dialogInterface ) {
+                        if(userCancel) {
+                            client.cancelRequests( UploadActivity.this, true );
+                            Toast.makeText( UploadActivity.this, "Upload canceled", Toast.LENGTH_SHORT ).show();
+                        }
+                    }
+                } );
+                progressDialog.show();
+            }
 
             @Override
             public void onSuccess( JSONObject response ) {
@@ -109,12 +151,22 @@ public class UploadActivity extends Activity {
                 } catch( JSONException e ) {
                     e.printStackTrace();
                 }
-                if( "false".equals( status ) ) {
-                    createDialog( "There was an error while uploading your image, please try again" );
+                if( "true".equals( status ) ) {
+                    createDialog( "File uploaded successfully" );
                 } else {
-                    createDialog( "Image uploaded successfully" );
+                    createDialog( "There was an error while uploading your image, please try again" );
                 }
+                userCancel = false;
+                progressDialog.dismiss();
                 Log.e( getClass().getName(), response.toString() + status );
+            }
+
+            @Override
+            public void onFailure( Throwable e, JSONObject errorResponse ) {
+                super.onFailure( e, errorResponse );
+                userCancel = false;
+                progressDialog.dismiss();
+                Log.e( getClass().getName(), e.getMessage() );
             }
 
             @Override
@@ -137,5 +189,18 @@ public class UploadActivity extends Activity {
                 } ).create().show();
     }
 
-
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
 }

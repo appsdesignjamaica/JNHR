@@ -92,9 +92,10 @@ public class ProfileSetup extends Activity {
         View passwordView = getLayoutInflater().inflate( R.layout.dialog_password, null, false );
         final Dialog d = new Dialog( this );
         d.requestWindowFeature( Window.FEATURE_NO_TITLE );
-        d.setContentView( passwordView, new ViewGroup.LayoutParams( 450, LinearLayout.LayoutParams.MATCH_PARENT ) );
-        final EditText password1 = (EditText)d.findViewById( R.id.dialogPassword1 );
-        final EditText password2 = (EditText)d.findViewById( R.id.dialogPassword2 );
+        d.setContentView( passwordView, new ViewGroup.LayoutParams( 650, ViewGroup.LayoutParams.MATCH_PARENT ) );
+        //final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        final EditText password1 = (EditText)passwordView.findViewById( R.id.dialogPassword1 );
+        final EditText password2 = (EditText)passwordView.findViewById( R.id.dialogPassword2 );
         password1.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View view ) {
@@ -107,7 +108,7 @@ public class ProfileSetup extends Activity {
                 password2.setError( null );
             }
         } );
-        d.findViewById( R.id.dialogConfirmButton ).setOnClickListener( new View.OnClickListener() {
+        passwordView.findViewById( R.id.dialogConfirmButton ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View view ) {
                 String pass1 = password1.getText().toString().trim();
@@ -122,10 +123,10 @@ public class ProfileSetup extends Activity {
 
             }
         } );
-        d.findViewById( R.id.dialogCancelButton ).setOnClickListener( new View.OnClickListener() {
+        passwordView.findViewById( R.id.dialogCancelButton ).setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View v ) {
-                d.dismiss();
+                    d.dismiss();
             }
         } );
        d.show();
