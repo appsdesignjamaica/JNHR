@@ -25,7 +25,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/articlesListView"
         android:layout_gravity="center_horizontal"
         android:choiceMode="singleChoice"
@@ -35,5 +35,8 @@
         tools:listitem="@layout/row_article"
         android:clipToPadding="false"
         android:smoothScrollbar="true"
-        android:fadingEdge="vertical"/>
+        android:fadingEdge="vertical"
+        android:background="#dddddd"
+        android:dividerHeight="2dp"
+        android:clickable="true"/>
 </LinearLayout>

@@ -8,8 +8,24 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/webView"
-        android:layout_weight="1"/>
+        android:id="@+id/articleWebView"
+        android:layout_weight="1"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/articleImageView"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/articleVideoView"
+        android:layout_weight="1"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -27,6 +43,14 @@
             android:id="@+id/button4"
             android:textSize="18sp"
             android:onClick="toggleDrawer"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="people like this"
+            android:id="@+id/articleLikesTextView"
+            android:padding="5dp"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -51,7 +75,8 @@
                 android:singleLine="true"
                 android:layout_marginLeft="2dp"
                 android:drawablePadding="5dp"
-                android:paddingRight="20dp"/>
+                android:paddingRight="20dp"
+                android:onClick="updateArticleLikes"/>
 
             <Button
                 style="?android:attr/buttonStyleSmall"

@@ -30,9 +30,8 @@
     <string name="jngroup_request_url">http://www.appsdesignja.com/jngroupws/jngroupclient.php</string>
 
     <!-- Sample text 20 words -->
-    <string name="sample_text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque luctus
-        dictum justo at dictum. Ut id lacus bibendum, vehicula tortor.
-    </string>
+    <string name="sample_text">        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque luctus
+        dictum justo at dictum. Ut id lacus bibendum, vehicula tortor.</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

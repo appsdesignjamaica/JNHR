@@ -2,8 +2,8 @@ package com.main.jngroup.jngroup;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,19 +11,22 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.main.jngroup.R;
-import com.main.jngroup.jnhelper.AppConstant;
-import com.main.jngroup.jnhelper.JNUtils;
 import com.main.jngroup.jnhelper.TextHelper;
+import com.main.jngroup.objects.ArticleObject;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArticlesActivity extends Activity {
-    private ListView mArticles;
+    private ListView mArticlesListView;
     private ArticlesAdapter mAdapter;
 
     @Override
@@ -31,55 +34,96 @@ public class ArticlesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles);
 
-        mArticles = (ListView)findViewById( R.id.articlesListView );
+        mArticlesListView = (ListView)findViewById( R.id.articlesListView );
 
         TextHelper.setTextTypeface( this, (TextView) findViewById( R.id.textView ) );
+        int type = getIntent().getIntExtra( "type", 2 );
+        loadArticlesList(type);
 
-        new AsyncTask<Void, Void, Void>(){
-
-            @Override
-            protected Void doInBackground( Void... voids ) {
-                List<NameValuePair> params = new ArrayList<NameValuePair>(  );
-               // params.add( new BasicNameValuePair(  ) );
-               String json = JNUtils.getJsonFromUrl( getString( R.string.jngroup_request_url ),
-                        AppConstant.POST_REQUEST, params );
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute( Void aVoid ) {
-                super.onPostExecute( aVoid );
-
-                mAdapter = new ArticlesAdapter(null);
-            }
-        }.execute(  );
-
-        mArticles.setAdapter( mAdapter );
-        mArticles.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+        mArticlesListView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick( AdapterView<?> adapterView, View view, int position, long id ) {
+                ArticleObject object = (ArticleObject)view.getTag(R.integer.tag_two);
                 Intent pdfIntent = new Intent( ArticlesActivity.this, ArticleViewActivity.class );
-                pdfIntent.putExtra( "pdf_url", "http://www.energy.umich.edu/sites/default/files/pdf-sample.pdf" );
+                pdfIntent.putExtra( "type", object.getArticleType() );
+                pdfIntent.putExtra( "id", object.getArticleId() );
+                pdfIntent.putExtra( "date", object.getArticleDate() );
                 startActivity( pdfIntent );
             }
         } );
     }
 
+    /**
+     * LOAD ARTICLES BASED ON TYPE SELECTED
+     * @param artType type of article to fetch
+     */
+    private void loadArticlesList( final int artType){
+        AsyncHttpClient client = new AsyncHttpClient(  );
+        RequestParams params = new RequestParams(  );
+        params.put( "op","getjnarticlesbytype" );
+        params.put( "idtype",String.valueOf( artType ) );
+        client.post(this,getString( R.string.jngroup_request_url ),params,new JsonHttpResponseHandler(  ){
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess( JSONObject response ) {
+                super.onSuccess( response );
+
+                JSONArray jArray;
+                List<ArticleObject> articleList = null;
+                try {
+                    jArray = response.getJSONArray( "JNGroup" ).getJSONObject( 0 )
+                            .getJSONArray( "Articlebytype" );
+                    articleList = new ArrayList<ArticleObject>( jArray.length()-1 );
+                    if(jArray.length() > 0) {
+                        for( int i = 0; i < jArray.length(); i++ ) {
+                            ArticleObject article = new ArticleObject();
+                            JSONObject object = jArray.getJSONObject( i );
+                            article.setArticleId( object.getInt( "articleid" ) );
+                            article.setArticleName( object.getString( "articlename" ) );
+                            article.setArticleDate( object.getString( "pubdate" ) );
+                            article.setPosterFirstName( object.getString( "publisherfirstname" ) );
+                            article.setPosterLastName( object.getString( "publisherlastname" ) );
+                            articleList.add( article );
+                        }
+                    }
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
+
+                mAdapter = new ArticlesAdapter( articleList, artType );
+                mArticlesListView.setAdapter( mAdapter );
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure( Throwable e, JSONObject errorResponse ) {
+                super.onFailure( e, errorResponse );
+            }
+        });
+    }
 
     public class ArticlesAdapter extends BaseAdapter {
-        private List<String> articleList;
-
-        public ArticlesAdapter(List<String> items){
+        private List<ArticleObject> articleList;
+        private int articleType;
+        public ArticlesAdapter(List<ArticleObject> items, int artType){
            articleList = items;
+            articleType = artType;
         }
 
         @Override
         public int getCount() {
-            return articleList.size();
+            if(null != articleList)
+                return articleList.size();
+            else
+                return 0;
         }
 
         @Override
-        public String getItem( int position ) {
+        public ArticleObject getItem( int position ) {
             return articleList.get( position );
         }
 
@@ -96,19 +140,31 @@ public class ArticlesActivity extends Activity {
                 convertView = getLayoutInflater().inflate(R.layout.row_article , viewGroup, false );
                 holder = new Holder();
                 holder.articleName = (TextView)convertView.findViewById( R.id.articleTextView );
-                convertView.setTag( holder );
+                holder.articlePoster = (TextView)convertView.findViewById( R.id.articlePosterTextView );
+                convertView.setTag( R.integer.tag_one, holder );
             }else{
-                holder = (Holder)convertView.getTag();
+                holder = (Holder)convertView.getTag(R.integer.tag_one);
             }
 
-            holder.articleName.setText( getItem( position ) );
+            ArticleObject object = getItem( position );
+            object.setArticleType( articleType );
 
+            if(articleType == 2)
+                holder.articleName.setText( object.getArticleName()
+                        .substring( object.getArticleName().indexOf( "_" )+1 ) );
+            else
+                holder.articleName.setText( object.getArticleName() );
+            holder.articlePoster.setText( "Posted by: " + object.getPosterName() +
+                    " On: " + object.getArticleDate().substring( 0, 10 ) );
+
+            convertView.setTag( R.integer.tag_two, object );
             return convertView;
         }
 
 
         class Holder{
             TextView articleName;
+            TextView articlePoster;
         }
     }
 

@@ -8,6 +8,13 @@
               android:clickable="false"
     >
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:src="@drawable/bg_jn_logo_opacity"
+        android:scaleType="fitCenter"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"

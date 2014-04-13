@@ -85,15 +85,16 @@ public class MainActivity extends Activity implements ViewPager.OnPageChangeList
 
 				@Override
 				public void onClick(View arg0) {
-                    final CharSequence[] articleType = {"PDF","Images", "Videos"};
+                    final CharSequence[] articleType = {"Videos", "PDF", "Images", };
                     new AlertDialog.Builder( MainActivity.this )
                             .setTitle( "Select the type of article needed" )
                             .setSingleChoiceItems( articleType, 0, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick( DialogInterface dialogInterface, int item ) {
                                     Intent fetchIntent = new Intent( MainActivity.this, ArticlesActivity.class );
-                                    fetchIntent.putExtra( "type", item );
+                                    fetchIntent.putExtra( "type", item+1 );
                                     startActivity(fetchIntent);
+                                    dialogInterface.dismiss();
                                 }
                             } ).create().show();
 
