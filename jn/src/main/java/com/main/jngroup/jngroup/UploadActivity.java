@@ -166,7 +166,7 @@ public class UploadActivity extends Activity {
                 super.onFailure( e, errorResponse );
                 userCancel = false;
                 progressDialog.dismiss();
-                Log.e( getClass().getName(), e.getMessage() );
+                e.printStackTrace();
             }
 
             @Override

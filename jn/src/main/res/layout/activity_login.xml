@@ -19,10 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="#3033b0f4"
-        android:layout_centerVertical="true"
-        android:layout_margin="20dp"
-        android:paddingBottom="15dp">
+        android:background="#33B0F4"
+        android:paddingBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerVertical="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +38,8 @@
             android:layout_marginBottom="10dp"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:textColor="@color/yellow"/>
 
         <EditText
             android:layout_width="300dp"
@@ -62,7 +65,8 @@
             android:layout_alignStart="@+id/editText2"
             android:layout_marginBottom="10dp"
             android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/yellow"/>
 
         <EditText
             android:layout_width="300dp"
@@ -86,14 +90,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="password recovery"
             android:id="@+id/textView4"
-            android:padding="5dp"
             android:layout_above="@+id/button2"
             android:layout_alignLeft="@+id/button2"
             android:layout_alignStart="@+id/button2"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:gravity="right"
             android:layout_marginRight="20dp"
-            />
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:textStyle="italic"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -111,7 +117,8 @@
                 android:layout_alignStart="@+id/editText2"
                 android:background="@drawable/general_button_selector"
                 android:textColor="@color/yellow"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:onClick="userLogin"/>
 
             <Button
                 android:layout_width="145dp"

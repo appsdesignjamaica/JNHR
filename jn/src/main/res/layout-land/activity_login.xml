@@ -1,0 +1,143 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.main.jngroup.jngroup.LoginActivity">
+
+    <TextView
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_height"
+        android:gravity="center"
+        android:textSize="@dimen/header_textview_size"
+        android:background="@color/blue"
+        android:textColor="@color/yellow"
+        android:id="@+id/textView"/>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView"
+        android:background="#33B0F4"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/textView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Username"
+                android:id="@+id/textView2"
+                android:layout_alignLeft="@+id/editText"
+                android:layout_alignStart="@+id/editText"
+                android:layout_above="@+id/editText"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/yellow"/>
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText"
+                android:background="@drawable/round_background_edittext"
+                android:layout_above="@+id/editText2"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/yellow"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Password"
+                android:id="@+id/textView3"
+                android:layout_above="@+id/editText2"
+                android:layout_alignLeft="@+id/editText2"
+                android:layout_alignStart="@+id/editText2"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/yellow"/>
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/editText2"
+                android:background="@drawable/round_background_edittext"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/yellow"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="password recovery"
+                android:id="@+id/textView4"
+                android:layout_above="@+id/button2"
+                android:layout_alignLeft="@+id/button2"
+                android:layout_alignStart="@+id/button2"
+                android:textColor="@color/whitek"
+                android:gravity="right"
+                android:layout_marginRight="20dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textStyle="italic"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp">
+
+                <Button
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:id="@+id/button"
+                    android:layout_alignTop="@+id/editText2"
+                    android:layout_alignLeft="@+id/editText2"
+                    android:layout_alignStart="@+id/editText2"
+                    android:background="@drawable/general_button_selector"
+                    android:textColor="@color/yellow"
+                    android:layout_marginRight="20dp"
+                    android:onClick="userLogin"/>
+
+                <Button
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:id="@+id/button2"
+                    android:layout_alignTop="@+id/button"
+                    android:layout_alignRight="@+id/editText2"
+                    android:layout_alignEnd="@+id/editText2"
+                    android:background="@drawable/general_button_selector"
+                    android:textColor="@color/yellow"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

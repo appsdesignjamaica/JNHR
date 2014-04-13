@@ -4,10 +4,11 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingTop="2dp"
-              android:paddingBottom="2dp"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp"
               android:paddingLeft="5dp"
-              android:paddingRight="20dp">
+              android:paddingRight="20dp"
+              android:background="@drawable/bg_wrapper">
 
     <TextView
         android:layout_width="match_parent"

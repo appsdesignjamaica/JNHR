@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -8,7 +8,8 @@
               android:paddingLeft="20dp"
               android:paddingTop="10dp"
               android:paddingRight="20dp"
-              android:paddingBottom="10dp">
+              android:paddingBottom="10dp"
+              android:gravity="center">
 
     <EditText
         android:layout_width="match_parent"
@@ -20,9 +21,10 @@
         android:layout_centerVertical="true"
         android:background="@drawable/round_background_edittext"
         android:textColor="@color/yellow"
-        android:textColorHint="@color/yellow"
+        android:textColorHint="@color/yellow_opacity"
         android:padding="10dp"
-        android:inputType="text|textMultiLine|textCapSentences"/>
+        android:inputType="text|textMultiLine|textCapSentences"
+        />
 
     <Button
         android:layout_width="match_parent"
@@ -31,10 +33,7 @@
         android:id="@+id/commentButton"
         android:background="@drawable/general_button_selector"
         android:textColor="@color/yellow"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="50dp"
         android:layout_gravity="bottom"
         android:layout_below="@+id/commentEditText"
-        android:layout_marginBottom="10dp"/>
-</RelativeLayout>
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

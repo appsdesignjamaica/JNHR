@@ -77,17 +77,19 @@ public class ArticlesActivity extends Activity {
                 try {
                     jArray = response.getJSONArray( "JNGroup" ).getJSONObject( 0 )
                             .getJSONArray( "Articlebytype" );
-                    articleList = new ArrayList<ArticleObject>( jArray.length()-1 );
                     if(jArray.length() > 0) {
-                        for( int i = 0; i < jArray.length(); i++ ) {
-                            ArticleObject article = new ArticleObject();
-                            JSONObject object = jArray.getJSONObject( i );
-                            article.setArticleId( object.getInt( "articleid" ) );
-                            article.setArticleName( object.getString( "articlename" ) );
-                            article.setArticleDate( object.getString( "pubdate" ) );
-                            article.setPosterFirstName( object.getString( "publisherfirstname" ) );
-                            article.setPosterLastName( object.getString( "publisherlastname" ) );
-                            articleList.add( article );
+                        articleList = new ArrayList<ArticleObject>( jArray.length() );
+                        if( jArray.length() > 0 ) {
+                            for( int i = 0; i < jArray.length(); i++ ) {
+                                ArticleObject article = new ArticleObject();
+                                JSONObject object = jArray.getJSONObject( i );
+                                article.setArticleId( object.getInt( "articleid" ) );
+                                article.setArticleName( object.getString( "articlename" ) );
+                                article.setArticleDate( object.getString( "pubdate" ) );
+                                article.setPosterFirstName( object.getString( "publisherfirstname" ) );
+                                article.setPosterLastName( object.getString( "publisherlastname" ) );
+                                articleList.add( article );
+                            }
                         }
                     }
                 } catch( JSONException e ) {

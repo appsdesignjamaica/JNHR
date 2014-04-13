@@ -3,14 +3,18 @@ package com.main.jngroup.jngroup;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.BaseAdapter;
@@ -19,6 +23,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -27,16 +33,27 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.main.jngroup.R;
 import com.main.jngroup.jnhelper.JNPreferences;
+import com.main.jngroup.objects.CommentObject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleViewActivity extends Activity {
     private LinearLayout mDrawerContainer;
     private boolean isMenuOpen = true;
     private int mArticleId;
+    private int mArticleLikes;
     private JNPreferences mPrefs;
     private  ListView mArticleCommentsListView;
     private AsyncHttpClient client;
+    private TextView mArticleLikesTextView;
+    private Dialog mCommentDialog;
+    private List<CommentObject> mCommentsList;
+    private ArticlesViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +64,8 @@ public class ArticleViewActivity extends Activity {
         mPrefs = new JNPreferences( this );
         mArticleCommentsListView  = (ListView) findViewById( R.id.articleViewListView );
         client = new AsyncHttpClient(  );
+        mArticleLikesTextView = (TextView)findViewById( R.id.articleLikesTextView );
+        mCommentsList = new ArrayList<CommentObject>(  );
 
         Bundle extras = getIntent().getExtras();
         mArticleId = extras.getInt( "id" );
@@ -65,13 +84,13 @@ public class ArticleViewActivity extends Activity {
                 break;
         }
 
+        fetchArticleLikes();
         fetchComments();
 
     }
 
     private void loadPdfDocument() {
         WebView articleView = (WebView)findViewById( R.id.articleWebView );
-
         articleView.getSettings().setJavaScriptEnabled( true );
         articleView.setWebViewClient( new WebViewClient() );
         String pdfURL = getIntent().getExtras().getString( "pdf_url" );
@@ -84,17 +103,42 @@ public class ArticleViewActivity extends Activity {
 
     }
 
+    /**
+     * LOADS VIDEO URL FROM SERVER
+     */
     private void loadVideo(){
-        Log.e( "ART ID", mArticleId+"" );
-        VideoView video = (VideoView)findViewById( R.id.articleVideoView );
-        video.setVisibility( View.VISIBLE );
+
         RequestParams params = new RequestParams(  );
         params.put( "op", "getjnarticlesinfourl" );
         params.put( "idarticle", String.valueOf( mArticleId ) );
         client.post( this,getString( R.string.jngroup_request_url ),params, new JsonHttpResponseHandler(  ){
+            ProgressBar progressBar = (ProgressBar)findViewById( R.id.articleProgressBar );
+            @Override
+            public void onStart() {
+                progressBar.setInterpolator( new LinearInterpolator(  ) );
+
+            }
+
             @Override
             public void onSuccess( JSONObject response ) {
-                Log.e( "VIDEO URL", response.toString() );
+                progressBar.setVisibility( View.GONE );
+                String vidUrl = null;
+                try {
+                    vidUrl = response.getJSONArray( "JNGroup" ).getJSONObject( 0 )
+                            .getJSONArray( "articleurl" ).getJSONObject( 0 ).getString( "articleurl" );
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
+
+                MediaController control = new MediaController( ArticleViewActivity.this );
+                VideoView video = (VideoView)findViewById( R.id.articleVideoView );
+                control.setEnabled( true );
+                control.setAnchorView( video );
+                video.setVisibility( View.VISIBLE );
+                video.requestFocus();
+                video.setMediaController( control );
+                video.setVideoURI( Uri.parse( vidUrl ) );
+                video.start();
             }
         });
     }
@@ -134,15 +178,28 @@ public class ArticleViewActivity extends Activity {
     public void makeComment(View v){
         View commentView = getLayoutInflater().inflate( R.layout.dialog_comment, null, false );
 
-        Dialog alert = new Dialog( this );
-        alert.requestWindowFeature( Window.FEATURE_NO_TITLE );
-        alert.setContentView( commentView );
+        mCommentDialog = new Dialog( this );
+        mCommentDialog.requestWindowFeature( Window.FEATURE_NO_TITLE );
+
+        //Grab the window of the dialog, and change the width
+     //   WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+      //  Window window = mCommentDialog.getWindow();
+     //   lp.copyFrom(window.getAttributes());
+        //This makes the dialog take up the full width
+       int orientation = getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_PORTRAIT)
+            mCommentDialog.setContentView( commentView,
+                    new ViewGroup.LayoutParams( 650, ViewGroup.LayoutParams.MATCH_PARENT ) );
+        else
+            mCommentDialog.setContentView( commentView,
+                    new ViewGroup.LayoutParams( 750, ViewGroup.LayoutParams.MATCH_PARENT ) );
+
         final EditText commentBox = ((EditText)commentView.findViewById( R.id.commentEditText ));
-        commentView.findViewById(R.id.commentButton).setOnClickListener( new View.OnClickListener() {
+       commentView.findViewById(R.id.commentButton).setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick( View view ) {
-                String comment =  commentBox.getText().toString();
+                String comment = commentBox.getText().toString();
                 if( comment.length() < 3 )
                     commentBox.setError( Html.fromHtml( "<font color='red'>Text was too short</font>" ) );
                 else {
@@ -157,9 +214,10 @@ public class ArticleViewActivity extends Activity {
                                 @Override
                                 public void onSuccess( JSONObject response ) {
                                     commentBox.setText( "" );
-                                    Log.e(getClass().getName(), "Sent comment " + response.toString());
+                                    Log.e( getClass().getName(), "Sent comment " + response.toString() );
                                 }
-                            } );
+                            }
+                    );
                 }
             }
         } );
@@ -169,13 +227,14 @@ public class ArticleViewActivity extends Activity {
                 commentBox.setError( null );
             }
         } );
-        alert.show();
+        mCommentDialog.show();
     }
 
     /**
      * LIKE AN ARTICLE
      */
     public void updateArticleLikes(View v){
+        Log.e(getClass().getName(), String.valueOf( mArticleId ));
         AsyncHttpClient client = new AsyncHttpClient(  );
         RequestParams params = new RequestParams(  );
         params.put( "op", "jnarticlelike" );
@@ -184,8 +243,35 @@ public class ArticleViewActivity extends Activity {
         client.post( getString( R.string.jngroup_request_url ), params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess( JSONObject response ) {
+                if(null != mArticleLikesTextView )
+                    mArticleLikesTextView.setText( (mArticleLikes >= 2)?
+                            mArticleLikes + " people like this article" :
+                            (mArticleLikes == 1)? mArticleLikes + " person like this article" :
+                            mArticleLikes + " persons like this article");
+            }
+        } );
+    }
+    private void fetchArticleLikes(){
+        AsyncHttpClient client = new AsyncHttpClient(  );
+        RequestParams params = new RequestParams(  );
+        params.put( "op", "getjncountarticleslike" );
+        params.put( "idarticle", String.valueOf( mArticleId ) );
+        client.post( getString( R.string.jngroup_request_url ), params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess( JSONObject response ) {
 
-                Log.e(getClass().getName(), response.toString());
+                try {
+                    mArticleLikes = response.getJSONArray( "JNGroup" ).getJSONObject( 0 )
+                            .getJSONArray( "Countlikes" ).getJSONObject( 0 ).getInt( "likecount" );
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
+                if(null != mArticleLikesTextView )
+                    mArticleLikesTextView.setText( (mArticleLikes >= 2)?
+                            mArticleLikes + " people like this article" :
+                            (mArticleLikes == 1)? mArticleLikes + " person like this article" :
+                                    mArticleLikes + " persons like this article");
+
             }
         } );
     }
@@ -200,6 +286,21 @@ public class ArticleViewActivity extends Activity {
         client.post(this,getString( R.string.jngroup_request_url ), params, new JsonHttpResponseHandler(  ){
             @Override
             public void onSuccess( JSONObject response ) {
+                JSONArray jsonArray;
+                try {
+                     jsonArray = response.getJSONArray( "JNGroup" ).getJSONObject( 0 )
+                                .getJSONArray( "ArticleComment" );
+
+                    for(int i=0;i<jsonArray.length();i++) {
+
+                        jsonArray.getJSONObject( i );
+
+                    }
+                } catch( JSONException e ) {
+                    e.printStackTrace();
+                }
+
+                mAdapter = new ArticlesViewAdapter( null );
                 Log.e(getClass().getName(), response.toString());
             }
         });
@@ -209,11 +310,11 @@ public class ArticleViewActivity extends Activity {
      * SET ARTICLE ADAPTER
      */
     public class ArticlesViewAdapter extends BaseAdapter {
+        List<CommentObject> items;
 
+        public ArticlesViewAdapter(List<CommentObject> objects){
 
-        public ArticlesViewAdapter(){
-
-
+            this.items = objects;
 
         }
 
@@ -223,8 +324,8 @@ public class ArticleViewActivity extends Activity {
         }
 
         @Override
-        public String getItem( int position ) {
-            return null;
+        public CommentObject getItem( int position ) {
+            return items.get( position );
         }
 
         @Override
@@ -245,9 +346,10 @@ public class ArticleViewActivity extends Activity {
             }else{
                 holder = (Holder)convertView.getTag();
             }
+            CommentObject object = getItem( position );
 
-            holder.comment.setText( "" );
-            holder.commenterName.setText("" );
+            holder.comment.setText( object.getCommentBody() );
+            holder.commenterName.setText( object.getCommenterName() );
 
             return convertView;
         }
@@ -264,5 +366,7 @@ public class ArticleViewActivity extends Activity {
         super.onPause();
         if(null != client)
             client.cancelRequests( this, true );
+        if(null != mCommentDialog )
+           mCommentDialog.dismiss();
     }
 }
