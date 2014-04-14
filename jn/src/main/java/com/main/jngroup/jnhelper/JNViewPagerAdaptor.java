@@ -1,6 +1,8 @@
 package com.main.jngroup.jnhelper;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -71,7 +73,19 @@ public class JNViewPagerAdaptor extends PagerAdapter {
                      act.startActivity( new Intent( act, ProfileSetup.class ) );
 					 break;
 				case 3:
-                    act.startActivity( new Intent( act, ArticlesActivity.class ) );
+                    final CharSequence[] articleType = {"Videos", "PDF", "Images", };
+                    new AlertDialog.Builder( act )
+                            .setTitle( "Select the type of article needed" )
+                            .setSingleChoiceItems( articleType, 0, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick( DialogInterface dialogInterface, int item ) {
+                                    Intent fetchIntent = new Intent( act, ArticlesActivity.class );
+                                    fetchIntent.putExtra( "type", item+1 );
+                                    act.startActivity(fetchIntent);
+                                    dialogInterface.dismiss();
+                                }
+                            } ).create().show();
+
 					break;
 				case 4:
                     act.startActivity( new Intent( act, MessagingActivity.class ) );

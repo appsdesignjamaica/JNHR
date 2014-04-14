@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.main.jngroup.jngroup.LoginActivity">
+    tools:context="com.main.jngroup.jngroup.LoginActivity"
+    android:background="@color/header_color">
 
     <TextView
         android:text="Login"
@@ -19,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="#33B0F4"
+        android:background="@drawable/bg_wrapper"
         android:paddingBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -39,7 +40,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textColor="@color/yellow"/>
+            android:textColor="@color/black"/>
 
         <EditText
             android:layout_width="300dp"
@@ -66,7 +67,7 @@
             android:layout_marginBottom="10dp"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="@color/yellow"/>
+            android:textColor="@color/black"/>
 
         <EditText
             android:layout_width="300dp"

@@ -1,6 +1,7 @@
 package com.main.jngroup.jngroup;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,9 +64,12 @@ public class ArticlesActivity extends Activity {
         params.put( "op","getjnarticlesbytype" );
         params.put( "idtype",String.valueOf( artType ) );
         client.post(this,getString( R.string.jngroup_request_url ),params,new JsonHttpResponseHandler(  ){
+           ProgressDialog progressDialog = new ProgressDialog( ArticlesActivity.this );
             @Override
             public void onStart() {
-                super.onStart();
+               progressDialog.setMessage( "Fetching articles, just a sec" );
+                progressDialog.setIndeterminate( true );
+                progressDialog.show();
             }
 
             @Override
@@ -99,11 +103,14 @@ public class ArticlesActivity extends Activity {
                 mAdapter = new ArticlesAdapter( articleList, artType );
                 mArticlesListView.setAdapter( mAdapter );
                 mAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure( Throwable e, JSONObject errorResponse ) {
                 super.onFailure( e, errorResponse );
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         });
     }
