@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -35,6 +37,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.main.jngroup.R;
 import com.main.jngroup.jnhelper.JNPreferences;
+import com.main.jngroup.jnhelper.JNUtils;
 import com.main.jngroup.objects.CommentObject;
 
 import org.json.JSONArray;
@@ -158,7 +161,7 @@ public class ArticleViewActivity extends Activity {
 
             @Override
             public void onSuccess( JSONObject response ) {
-                progressBar.setVisibility( View.GONE );
+
                 String bmpUrl = null;
                 try {
                     bmpUrl = response.getJSONArray( "JNGroup" ).getJSONObject( 0 )
@@ -167,13 +170,22 @@ public class ArticleViewActivity extends Activity {
                     e.printStackTrace();
                 }
 
-                ImageView image = (ImageView)findViewById( R.id.articleImageView );
-                image.setVisibility( View.VISIBLE );
-                try {
-                    image.setImageBitmap( BitmapFactory.decodeStream( new FileInputStream( bmpUrl ) ) );
-                } catch( FileNotFoundException e ) {
-                    e.printStackTrace();
-                }
+                new AsyncTask<String,Void,Bitmap>(){
+                    @Override
+                    protected Bitmap doInBackground( String... vals ) {
+                       return JNUtils.fetchBitmapFromUrl( vals[0] );
+                    }
+
+                    @Override
+                    protected void onPostExecute( Bitmap bmp) {
+                        super.onPostExecute( bmp );
+                        progressBar.setVisibility( View.GONE );
+
+                        ImageView image = (ImageView)findViewById( R.id.articleImageView );
+                        image.setVisibility( View.VISIBLE );
+                        image.setImageBitmap( bmp );
+                    }
+                }.execute( bmpUrl );
 
             }
         });

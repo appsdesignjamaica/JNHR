@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.main.jngroup.jngroup.LoginActivity">
+    tools:context="com.main.jngroup.jngroup.LoginActivity"
+    android:background="@color/header_color">
 
     <TextView
         android:text="Login"
@@ -20,9 +21,9 @@
         android:id="@+id/scrollView"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView"
-        android:background="#33B0F4"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_wrapper">
 
         <LinearLayout
             android:orientation="vertical"
@@ -46,7 +47,7 @@
                 android:layout_above="@+id/editText"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:textColor="@color/yellow"/>
+                android:textColor="@color/black"/>
 
             <EditText
                 android:layout_width="300dp"
@@ -72,7 +73,7 @@
                 android:layout_alignStart="@+id/editText2"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:textColor="@color/yellow"/>
+                android:textColor="@color/black"/>
 
             <EditText
                 android:layout_width="300dp"
@@ -134,8 +135,8 @@
                     android:layout_alignTop="@+id/button"
                     android:layout_alignRight="@+id/editText2"
                     android:layout_alignEnd="@+id/editText2"
-                    android:background="@drawable/general_button_selector"
-                    android:textColor="@color/yellow"/>
+                    android:textColor="@color/yellow"
+                    android:background="@drawable/general_button_selector"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

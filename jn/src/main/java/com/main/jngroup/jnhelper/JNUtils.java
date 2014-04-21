@@ -1,6 +1,8 @@
 package com.main.jngroup.jnhelper;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -18,6 +20,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -30,12 +34,32 @@ public class JNUtils {
      * @param context context used to call the system service
      * @return true on/false off
      */
-    public static boolean hasIntenernetConnection(Context context){
+    public static boolean hasInternetConnection(Context context){
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService( Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
+    }
+
+    /**
+     * Fetch image from url and return bitmap from inputstream
+     * called on main thread still
+     */
+    public static Bitmap fetchBitmapFromUrl(String url){
+        Bitmap bmp = null;
+        URL newurl = null;
+        try {
+            newurl = new URL(url);
+        } catch( MalformedURLException e ) {
+            e.printStackTrace();
+        }
+        try {
+            bmp = BitmapFactory.decodeStream( newurl.openConnection().getInputStream() );
+        } catch( IOException e ) {
+            e.printStackTrace();
+        }
+        return bmp;
     }
 
     /**

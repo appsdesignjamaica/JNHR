@@ -20,40 +20,27 @@ public class SplashScreenActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView( R.layout.activity_splash_screen);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_splash_screen );
 
-        if( !JNUtils.hasIntenernetConnection( this )){
-            Toast.makeText( this, "You must be connected to the internet in order to proceed", Toast.LENGTH_LONG ).show();
-            Handle.removeCallbacks( null );
-            new Handler(  ).postDelayed( new Runnable() {
-                @Override
-                public void run() {
-                    finish();
-                    startActivity(new Intent( Settings.ACTION_SETTINGS));
-                }
-            }, 2000 );
 
-        }else {
+        gab = new GetAssetsBytes( this );
 
-            gab = new GetAssetsBytes( this );
+        final GifDecoderView gdv = (GifDecoderView) findViewById( R.id.ani_photo );
 
-            final GifDecoderView gdv = (GifDecoderView) findViewById( R.id.ani_photo );
+        gdv.setBytes( gab.getByteArray( "anigif/ajax.gif" ) );
+        gdv.startAnimation();
+        Handle.postDelayed( new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                gdv.stopAnimation();
+                finish();
+                startActivity( new Intent( getApplicationContext(), MainActivity.class ) );
+            }
 
-            gdv.setBytes( gab.getByteArray( "anigif/ajax.gif" ) );
-            gdv.startAnimation();
-            Handle.postDelayed( new Runnable() {
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    gdv.stopAnimation();
-                    finish();
-                    startActivity( new Intent( getApplicationContext(), MainActivity.class ) );
-                }
-
-            }, AppConstant.SPLASH_TIME );
+        }, AppConstant.SPLASH_TIME );
             /*Change splash time back to 10 seconds */
-        }
-	}
+    }
 
 }
