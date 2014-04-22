@@ -160,10 +160,11 @@
                 android:inputType="text"
                 android:imeOptions="actionNext"
                 android:background="@drawable/round_background_edittext"
-                android:textColor="#fff300"
+                android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -184,7 +185,7 @@
                 android:singleLine="true"
                 android:inputType="text"
                 android:imeOptions="actionNext"
-                android:textColor="#fff300"
+                android:textColor="@color/black"
                 android:background="@drawable/round_background_edittext"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -208,7 +209,7 @@
                 android:nextFocusDown="@+id/telEditText"
                 android:singleLine="true"
                 android:inputType="textEmailAddress"
-                android:textColor="#fff300"
+                android:textColor="@color/black"
                 android:imeOptions="actionNext"
                 android:background="@drawable/round_background_edittext"
                 android:layout_marginLeft="10dp"
@@ -231,7 +232,7 @@
                 android:id="@+id/telEditText"
                 android:layout_gravity="center_horizontal"
                 android:nextFocusDown="@+id/faxEditText"
-                android:textColor="#fff300"
+                android:textColor="@color/black"
                 android:singleLine="true"
                 android:inputType="number"
                 android:imeOptions="actionNext"
@@ -254,7 +255,7 @@
                     android:layout_height="match_parent"
                     android:text="Update"
                     android:id="@+id/button"
-                    android:textColor="#fffb00"
+                    android:textColor="@color/black"
                     android:background="@drawable/general_button_selector"
                     android:onClick="parseInput"/>
 
@@ -264,7 +265,7 @@
                     android:text="Cancel"
                     android:id="@+id/button2"
                     android:layout_gravity="right"
-                    android:textColor="#fffb00"
+                    android:textColor="@color/black"
                     android:background="@drawable/general_button_selector"
                     android:layout_marginLeft="15dp"
                     android:onClick="cancelProfile"/>

@@ -117,7 +117,7 @@
                 android:layout_alignLeft="@+id/editText2"
                 android:layout_alignStart="@+id/editText2"
                 android:background="@drawable/general_button_selector"
-                android:textColor="@color/yellow"
+                android:textColor="@color/black"
                 android:layout_marginRight="20dp"
                 android:onClick="userLogin"/>
 
@@ -130,7 +130,7 @@
                 android:layout_alignRight="@+id/editText2"
                 android:layout_alignEnd="@+id/editText2"
                 android:background="@drawable/general_button_selector"
-                android:textColor="@color/yellow"
+                android:textColor="@color/black"
                 android:onClick="exitApp"/>
         </LinearLayout>
     </LinearLayout>
